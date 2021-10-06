@@ -9,6 +9,10 @@ def maybe_b(rule):  # (?:<rule>)?
     return bracket_group(rule) + '?'
 
 
+def maybe(rule):  # <rule>?
+    return rule + '?'
+
+
 def any_times_b(rule):  # (?:<rule>)*
     return bracket_group(rule) + '*'
 
@@ -48,7 +52,31 @@ FRAGMENT = any_times(alt_b([PCHAR, '/', '\\?']))
 HTTP_URI = '\\b' + 'https?://' + AUTHORITY + PATH_ABEMPTY + maybe_b('\\?' + QUERY) + maybe_b('#' + FRAGMENT) + '\\b'
 
 
-# ---
+# ---SSH---
 
 
-print(HTTP_URI)
+PARAMNAME = any_times('[0-9A-Za-z-]')
+PARAMVALUE = any_times('[0-9A-Za-z-]')
+C_PARAM = PARAMNAME + '=' + PARAMVALUE
+SSH_INFO = maybe(USERINFO) + maybe_b(';' + C_PARAM + any_times_b(',' + C_PARAM))
+
+SSH_AUTHORITY = maybe_b(maybe_b(SSH_INFO) + '@') + HOST + maybe_b(':' + PORT)
+
+SSH_URI = '\\b' + 'ssh://' + SSH_AUTHORITY + PATH_ABEMPTY + '\\b'
+
+
+# ---SFTP---
+
+
+S_PARAM = PARAMNAME + '=' + PARAMVALUE
+SFTP_AUTHORITY = maybe_b(SSH_INFO + '@') + HOST + maybe_b(':' + PORT)
+
+SFTP_URI = '\\b' + 'sftp://' + SFTP_AUTHORITY + PATH_ABEMPTY + maybe_b(';' + S_PARAM + any_times_b(',' + S_PARAM)) + '\\b'
+
+
+# ------
+
+
+# print(HTTP_URI)
+# print(SSH_URI)
+# print(SFTP_URI)
