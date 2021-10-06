@@ -85,8 +85,6 @@ SCHEME = alt_b(['smb', 'cifs'])
 SMB_ABS_URI = SCHEME + '://' + SMB_SERVICE + maybe_b('\\?' + maybe_b(NBT_CONTEXT))
 SMB_REL_URI = alt_b([PATH_ABSOLUTE, PATH_ROOTLESS]) + maybe_b('\\?' + maybe_b(NBT_CONTEXT))
 
-SMB_URI = '\\b' + alt_b([SMB_ABS_URI, SMB_REL_URI]) + '\\b'
+SMB_URI = alt_b([SMB_ABS_URI, SMB_REL_URI])
 
-# print(SMB_URI)
-# print('\\b' + SMB_ABS_URI + '\\b')
-# print('\\b' + SMB_REL_URI + '\\b')
+print(SMB_URI)

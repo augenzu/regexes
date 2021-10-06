@@ -56,6 +56,6 @@ HOST = alt_b([IPV4ADDS, REG_NAME])
 PORT = any_times(DIGIT)
 FTP_PATH = CWD_PART + '/' + LAST_SEGMENT + maybe_b(TYPECODE_PART)
 
-FTP_URI = '\\b' + 'ftp://' + maybe_b(USERINFO + '@') + HOST + maybe_b(':' + PORT) + maybe_b(FTP_PATH) + '\\b'
+FTP_URI = 'ftp://' + maybe_b(USERINFO + '@') + HOST + maybe_b(':' + PORT) + maybe_b(FTP_PATH)
 
 print(FTP_URI)

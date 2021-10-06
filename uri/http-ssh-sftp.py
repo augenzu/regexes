@@ -49,7 +49,7 @@ PATH_ABEMPTY = any_times_b('/' + SEGMENT)
 QUERY = any_times(alt_b([PCHAR, '/', '\\?']))
 FRAGMENT = any_times(alt_b([PCHAR, '/', '\\?']))
 
-HTTP_URI = '\\b' + 'https?://' + AUTHORITY + PATH_ABEMPTY + maybe_b('\\?' + QUERY) + maybe_b('#' + FRAGMENT) + '\\b'
+HTTP_URI = 'https?://' + AUTHORITY + PATH_ABEMPTY + maybe_b('\\?' + QUERY) + maybe_b('#' + FRAGMENT)
 
 
 # ---SSH---
@@ -62,7 +62,7 @@ SSH_INFO = maybe(USERINFO) + maybe_b(';' + C_PARAM + any_times_b(',' + C_PARAM))
 
 SSH_AUTHORITY = maybe_b(maybe_b(SSH_INFO) + '@') + HOST + maybe_b(':' + PORT)
 
-SSH_URI = '\\b' + 'ssh://' + SSH_AUTHORITY + PATH_ABEMPTY + '\\b'
+SSH_URI = 'ssh://' + SSH_AUTHORITY + PATH_ABEMPTY
 
 
 # ---SFTP---
@@ -71,12 +71,12 @@ SSH_URI = '\\b' + 'ssh://' + SSH_AUTHORITY + PATH_ABEMPTY + '\\b'
 S_PARAM = PARAMNAME + '=' + PARAMVALUE
 SFTP_AUTHORITY = maybe_b(SSH_INFO + '@') + HOST + maybe_b(':' + PORT)
 
-SFTP_URI = '\\b' + 'sftp://' + SFTP_AUTHORITY + PATH_ABEMPTY + maybe_b(';' + S_PARAM + any_times_b(',' + S_PARAM)) + '\\b'
+SFTP_URI = 'sftp://' + SFTP_AUTHORITY + PATH_ABEMPTY + maybe_b(';' + S_PARAM + any_times_b(',' + S_PARAM))
 
 
 # ------
 
 
-# print(HTTP_URI)
-# print(SSH_URI)
-# print(SFTP_URI)
+print(HTTP_URI)
+print(SSH_URI)
+print(SFTP_URI)
